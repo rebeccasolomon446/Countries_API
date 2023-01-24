@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
+import Country from "../Components/Country";
 
 const CountryContainers = () => {
 
     // States
-    const[country, setCountry] = useState(null);
+    const[countries, setCountries] = useState([]);
 
 
     useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all")
+        fetch("https://restcountries.com/v3.1/region/europe")
         .then(response => response.json())
-        .then(data => setCountry(data))
-    })
+        .then(data => setCountries(data))
+    },[])
 
+    const countryComponents = countries.map((country) => {
+        
+        return <Country country={country} />
+    })
     return(
-        <Country country={country} />
+        <div>
+      {countryComponents}
+      </div>
+      
     )
 };
 export default CountryContainers;
